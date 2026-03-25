@@ -5,72 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rotary - Melhores do Ano 2025</title>
   <style>
-    /* Reset padrão para ocupar a tela toda */
     body, html { 
-      margin: 0; 
-      padding: 0; 
-      height: 100%; 
-      width: 100%;
-      overflow: hidden; 
-      background-color: #042a55; /* Cor principal do seu site para o fundo */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0; height: 100%; width: 100%;
+      overflow: hidden; background-color: #042a55;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
-    /* Estilo do Iframe */
     iframe {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      z-index: 1;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; border: none; z-index: 1;
     }
 
-    /* Botão de redirecionamento (caso não carregue) */
+    /* Botão Flutuante */
     .btn-fallback {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100; /* Fica acima do iframe */
-      background-color: #f86218; /* Sua cor laranja secundária */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      background-color: #f86218;
       color: white;
-      padding: 12px 20px;
-      border-radius: 50px;
+      padding: 18px 25px;
+      border-radius: 12px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 14px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      transition: transform 0.2s, background-color 0.2s;
+      gap: 10px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
     }
 
-    .btn-fallback:hover {
-      background-color: #d44d0f;
-      transform: scale(1.05);
-    }
+    .btn-fallback span { font-size: 16px; }
+    .btn-fallback small { font-size: 11px; opacity: 0.8; font-weight: normal; }
 
-    /* Ícone simples via CSS */
-    .icon-external {
-      width: 16px;
-      height: 16px;
-      border: 2px solid white;
-      border-left: none;
-      border-bottom: none;
-      position: relative;
-    }
-    .icon-external::after {
-      content: '';
-      width: 2px;
-      height: 18px;
-      background: white;
-      position: absolute;
-      transform: rotate(-45deg);
-      top: -2px;
-      right: 0;
-    }
+    .btn-fallback:active { transform: translate(-50%, -50%) scale(0.95); }
+    
+    /* Classe para esconder o botão */
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
@@ -82,11 +57,25 @@
   </iframe>
 
   <a href="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec" 
+     id="btnOpen"
      target="_blank" 
-     class="btn-fallback">
-     <span>Não carregou? Abrir no Navegador</span>
-     <div class="icon-external"></div>
+     rel="noopener noreferrer"
+     class="btn-fallback"
+     onclick="handleExit()">
+     <span>🚀 ABRIR PORTAL COMPLETO</span>
+     <small>Clique para sair do Instagram e usar o Chrome/Safari</small>
   </a>
+
+  <script>
+    function handleExit() {
+      // 1. Faz o botão desaparecer imediatamente
+      document.getElementById('btnOpen').classList.add('hidden');
+      
+      // 2. Tenta uma pequena "forçada" para o navegador externo
+      // O target="_blank" já cuida disso na maioria dos Androids/iOS
+      console.log("Redirecionando para navegador externo...");
+    }
+  </script>
 
 </body>
 </html>
