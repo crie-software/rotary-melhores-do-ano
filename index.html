@@ -4,78 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rotary - Melhores do Ano 2025</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
     body, html { 
       margin: 0; padding: 0; height: 100%; width: 100%;
-      overflow: hidden; background-color: #042a55;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #2643c7; color: white;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
     }
 
+    /* Camada de Instrução (fica atrás do iframe) */
+    .instruction-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 20px;
+      box-sizing: border-box;
+      z-index: 0;
+    }
+
+    .instruction-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      max-width: 320px;
+    }
+
+    .dots-icon { font-size: 2rem; color: #f86218; margin-bottom: 15px; }
+    
+    h2 { font-size: 1.4rem; margin-bottom: 10px; }
+    p { font-size: 0.95rem; line-height: 1.5; opacity: 0.9; }
+
+    .step {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 20px; text-align: left;
+      background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;
+    }
+
+    /* Iframe (fica na frente) */
     iframe {
       position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; border: none; z-index: 1;
+      width: 100%; height: 100%; border: none;
+      z-index: 1; background: transparent;
     }
 
-    /* Botão Flutuante */
-    .btn-fallback {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 100;
-      background-color: #f86218;
-      color: white;
-      padding: 18px 25px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      border: 2px solid rgba(255,255,255,0.2);
+    /* Pequeno aviso flutuante opcional no topo (z-index alto) */
+    .mini-alert {
+      position: fixed; top: 10px; right: 10px;
+      z-index: 100; background: #f86218;
+      font-size: 11px; padding: 5px 10px;
+      border-radius: 20px; font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      pointer-events: none; /* Não atrapalha cliques no iframe */
+      animation: bounce 2s infinite;
     }
 
-    .btn-fallback span { font-size: 16px; }
-    .btn-fallback small { font-size: 11px; opacity: 0.8; font-weight: normal; }
-
-    .btn-fallback:active { transform: translate(-50%, -50%) scale(0.95); }
-    
-    /* Classe para esconder o botão */
-    .hidden { display: none !important; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
   </style>
 </head>
 <body>
 
+  <div class="mini-alert">
+    <i class="bi bi-arrow-up"></i> USE O NAVEGADOR (3 PONTOS)
+  </div>
+
+  <div class="instruction-overlay">
+    <div class="instruction-card">
+      <div class="dots-icon"><i class="bi bi-three-dots-vertical"></i></div>
+      <h2>Melhor Experiência</h2>
+      <p>Para navegar sem travamentos e usar todas as funções do portal:</p>
+      
+      <div class="step">
+        <span style="font-size: 1.2rem;">1º</span>
+        <span>Clique nos <strong>3 pontinhos</strong> no canto superior direito.</span>
+      </div>
+      
+      <div class="step">
+        <span style="font-size: 1.2rem;">2º</span>
+        <span>Selecione <strong>"Abrir no Navegador"</strong>.</span>
+      </div>
+    </div>
+  </div>
+
   <iframe 
-    id="meuApp"
     src="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec"
     allowfullscreen="true">
   </iframe>
-
-  <a href="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec" 
-     id="btnOpen"
-     target="_blank" 
-     rel="noopener noreferrer"
-     class="btn-fallback"
-     onclick="handleExit()">
-     <span>🚀 ABRIR PORTAL COMPLETO</span>
-     <small>Clique para sair do Instagram e usar o Chrome/Safari</small>
-  </a>
-
-  <script>
-    function handleExit() {
-      // 1. Faz o botão desaparecer imediatamente
-      document.getElementById('btnOpen').classList.add('hidden');
-      
-      // 2. Tenta uma pequena "forçada" para o navegador externo
-      // O target="_blank" já cuida disso na maioria dos Androids/iOS
-      console.log("Redirecionando para navegador externo...");
-    }
-  </script>
 
 </body>
 </html>
