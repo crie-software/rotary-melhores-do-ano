@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotary - Melhores do Ano 2025</title>
+  <style>
+    /* Reset padrão para ocupar a tela toda */
+    body, html { 
+      margin: 0; 
+      padding: 0; 
+      height: 100%; 
+      width: 100%;
+      overflow: hidden; 
+      background-color: #042a55; /* Cor principal do seu site para o fundo */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Estilo do Iframe */
+    iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 1;
+    }
+
+    /* Botão de redirecionamento (caso não carregue) */
+    .btn-fallback {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100; /* Fica acima do iframe */
+      background-color: #f86218; /* Sua cor laranja secundária */
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-fallback:hover {
+      background-color: #d44d0f;
+      transform: scale(1.05);
+    }
+
+    /* Ícone simples via CSS */
+    .icon-external {
+      width: 16px;
+      height: 16px;
+      border: 2px solid white;
+      border-left: none;
+      border-bottom: none;
+      position: relative;
+    }
+    .icon-external::after {
+      content: '';
+      width: 2px;
+      height: 18px;
+      background: white;
+      position: absolute;
+      transform: rotate(-45deg);
+      top: -2px;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe 
+    id="meuApp"
+    src="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec"
+    allowfullscreen="true">
+  </iframe>
+
+  <a href="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec" 
+     target="_blank" 
+     class="btn-fallback">
+     <span>Não carregou? Abrir no Navegador</span>
+     <div class="icon-external"></div>
+  </a>
+
+</body>
+</html>
