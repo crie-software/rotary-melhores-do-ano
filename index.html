@@ -4,95 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Melhores do Ano 2025 | Rotary Inocência</title>
+  
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/VNTkLGbS/png-clipart-rotary-international-logo-illsutration-rotary-international-the-four-way-test-rochester.png">
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  
   <style>
     :root {
       --primary-color: #2643c7;
-      --secondary-color: #e3ac6d;
       --gold-color: #f7ce45;
     }
 
-    /* Reset e Preenchimento Total */
     * { box-sizing: border-box; }
     
     body, html { 
-      margin: 0; padding: 0; 
-      width: 100%; height: 100%;
+      margin: 0; padding: 0; width: 100%; height: 100%;
       background: linear-gradient(135deg, #2643c7 0%, #57a34b 100%) fixed;
-      color: white;
-      font-family: "Segoe UI", system-ui, sans-serif;
-      overflow: hidden; /* Impede scroll na página pai */
+      color: white; font-family: "Segoe UI", system-ui, sans-serif;
+      overflow: hidden;
     }
 
-    /* Partículas (Z-index 0) */
-    .particles {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
-    }
-    .particle {
-      position: absolute; border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      animation: float 15s infinite linear;
-    }
+    /* Partículas */
+    .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    .particle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.2); animation: float 15s infinite linear; }
 
-    /* Camada de Instrução Centralizada (Z-index 1) */
+    /* Instrução Centralizada */
     .instruction-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;      /* Centraliza Vertical */
-      justify-content: center;   /* Centraliza Horizontal */
-      padding: 20px;
-      z-index: 1;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; z-index: 1;
     }
 
     .rotary-card {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 25px;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      width: 100%;
-      max-width: 350px; /* Largura máxima no Desktop */
+      background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      padding: 25px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 100%; max-width: 350px; text-align: center;
       box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-      text-align: center;
     }
 
-    .rotary-logo { 
-      width: 70px; 
-      height: auto;
-      margin-bottom: 15px; 
-      filter: drop-shadow(0 0 10px rgba(255,215,0,0.3)); 
-    }
+    .rotary-logo { width: 70px; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.3)); }
 
-    /* Iframe (Z-index 2 - Fica na frente de tudo) */
-    iframe {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; 
-      border: none; z-index: 2; 
-      background: transparent;
-    }
+    /* Iframe */
+    iframe { position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 2; background: transparent; }
 
-    /* Alerta Superior (Z-index 100 - Fica acima do Iframe) */
-    .mini-alert {
-      position: fixed; 
-      top: 15px; 
-      right: 15px;
-      z-index: 100; 
-      background: var(--gold-color);
-      color: #1a1a1a;
-      font-size: 11px; 
-      padding: 8px 14px;
-      border-radius: 50px; 
-      font-weight: 800;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      display: flex; 
-      align-items: center; 
-      gap: 6px;
-      text-transform: uppercase;
-      animation: attention 2s infinite;
+    /* Alerta Superior - Com ID para sumir */
+    #inst-alert {
+      position: fixed; top: 15px; right: 15px; z-index: 100; 
+      background: var(--gold-color); color: #1a1a1a;
+      font-size: 11px; padding: 8px 14px; border-radius: 50px; 
+      font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 6px;
+      text-transform: uppercase; animation: attention 2s infinite;
+      cursor: pointer; transition: opacity 0.5s ease;
     }
 
     @keyframes attention {
@@ -100,11 +63,12 @@
       50% { transform: scale(1.08); background: #fff; }
     }
 
+    .hidden { opacity: 0 !important; pointer-events: none !important; }
+
     .step-box {
-      background: rgba(0,0,0,0.2);
-      margin-top: 12px; padding: 12px;
-      border-radius: 15px; text-align: left;
-      font-size: 0.85rem; display: flex; align-items: center; gap: 12px;
+      background: rgba(0,0,0,0.2); margin-top: 12px; padding: 12px;
+      border-radius: 15px; text-align: left; font-size: 0.85rem;
+      display: flex; align-items: center; gap: 12px;
     }
     .step-num { 
       background: var(--gold-color); color: #1a1a1a; 
@@ -115,23 +79,20 @@
 
     @keyframes float {
       0% { transform: translateY(105vh) scale(0); opacity: 0; }
-      50% { opacity: 0.4; }
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
-    /* Ajustes para telas muito pequenas */
     @media (max-width: 360px) {
       .rotary-card { padding: 15px; }
       h2 { font-size: 1.2rem !important; }
-      .mini-alert { font-size: 9px; padding: 6px 10px; }
     }
   </style>
 </head>
-<body>
+<body onclick="hideAlert()">
 
   <div class="particles" id="particleContainer"></div>
 
-  <div class="mini-alert">
+  <div id="inst-alert">
     SAIR DO INSTAGRAM <i class="bi bi-three-dots-vertical"></i>
   </div>
 
@@ -153,19 +114,26 @@
   </div>
 
   <iframe 
-    src="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec"
+    src="https://crie-software.github.io/rotary-melhores-do-ano/"
     allowfullscreen="true">
   </iframe>
 
   <script>
+    // Função para esconder o alerta ao interagir com a página
+    function hideAlert() {
+      const alert = document.getElementById('inst-alert');
+      if (alert) {
+        alert.classList.add('hidden');
+      }
+    }
+
     // Gerador de Partículas
     const container = document.getElementById('particleContainer');
     for (let i = 0; i < 15; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
       const size = Math.random() * 12 + 4;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
+      p.style.width = size + 'px'; p.style.height = size + 'px';
       p.style.left = Math.random() * 100 + '%';
       p.style.animationDuration = (Math.random() * 8 + 12) + 's';
       p.style.animationDelay = (Math.random() * 5) + 's';
