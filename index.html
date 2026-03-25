@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Melhores do Ano 2025 | Rotary Inocência</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
@@ -12,16 +12,19 @@
       --gold-color: #f7ce45;
     }
 
+    /* Reset e Preenchimento Total */
+    * { box-sizing: border-box; }
+    
     body, html { 
-      margin: 0; padding: 0; height: 100%; width: 100%;
-      /* Identidade Visual: Degradê Azul para Verde */
+      margin: 0; padding: 0; 
+      width: 100%; height: 100%;
       background: linear-gradient(135deg, #2643c7 0%, #57a34b 100%) fixed;
       color: white;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      overflow: hidden;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      overflow: hidden; /* Impede scroll na página pai */
     }
 
-    /* Partículas Flutuantes de Fundo */
+    /* Partículas (Z-index 0) */
     .particles {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none; z-index: 0;
@@ -31,68 +34,96 @@
       background: rgba(255, 255, 255, 0.2);
       animation: float 15s infinite linear;
     }
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(0); opacity: 0; }
-      50% { opacity: 0.5; }
-      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-    }
 
-    /* Iframe do WebApp */
-    iframe {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
-      z-index: 2; background: transparent;
-    }
-
-    /* Card de Instrução (Caso o Instagram bloqueie o carregamento) */
+    /* Camada de Instrução Centralizada (Z-index 1) */
     .instruction-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      z-index: 1; text-align: center; padding: 20px;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;      /* Centraliza Vertical */
+      justify-content: center;   /* Centraliza Horizontal */
+      padding: 20px;
+      z-index: 1;
     }
 
     .rotary-card {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(15px);
-      padding: 30px; border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      max-width: 340px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 25px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 100%;
+      max-width: 350px; /* Largura máxima no Desktop */
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      text-align: center;
     }
 
-    .rotary-logo { width: 80px; margin-bottom: 15px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
+    .rotary-logo { 
+      width: 70px; 
+      height: auto;
+      margin-bottom: 15px; 
+      filter: drop-shadow(0 0 10px rgba(255,215,0,0.3)); 
+    }
 
-    /* Alerta Superior (Aponta para os 3 pontos do Instagram) */
+    /* Iframe (Z-index 2 - Fica na frente de tudo) */
+    iframe {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; 
+      border: none; z-index: 2; 
+      background: transparent;
+    }
+
+    /* Alerta Superior (Z-index 100 - Fica acima do Iframe) */
     .mini-alert {
-      position: fixed; top: 12px; right: 12px;
+      position: fixed; 
+      top: 15px; 
+      right: 15px;
       z-index: 100; 
       background: var(--gold-color);
-      color: #333;
-      font-size: 12px; padding: 8px 15px;
-      border-radius: 50px; font-weight: bold;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      pointer-events: none;
-      display: flex; align-items: center; gap: 8px;
+      color: #1a1a1a;
+      font-size: 11px; 
+      padding: 8px 14px;
+      border-radius: 50px; 
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      display: flex; 
+      align-items: center; 
+      gap: 6px;
+      text-transform: uppercase;
       animation: attention 2s infinite;
     }
 
     @keyframes attention {
-      0%, 100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-      50% { transform: scale(1.05); box-shadow: 0 5px 25px rgba(247, 206, 69, 0.6); }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); background: #fff; }
     }
 
     .step-box {
-      background: rgba(255,255,255,0.1);
-      margin-top: 15px; padding: 12px;
-      border-radius: 12px; text-align: left;
-      font-size: 0.9rem; display: flex; align-items: center; gap: 12px;
+      background: rgba(0,0,0,0.2);
+      margin-top: 12px; padding: 12px;
+      border-radius: 15px; text-align: left;
+      font-size: 0.85rem; display: flex; align-items: center; gap: 12px;
     }
     .step-num { 
-      background: var(--gold-color); color: #333; 
-      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gold-color); color: #1a1a1a; 
+      width: 22px; height: 22px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-weight: bold; flex-shrink: 0;
+      font-weight: bold; flex-shrink: 0; font-size: 12px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(105vh) scale(0); opacity: 0; }
+      50% { opacity: 0.4; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* Ajustes para telas muito pequenas */
+    @media (max-width: 360px) {
+      .rotary-card { padding: 15px; }
+      h2 { font-size: 1.2rem !important; }
+      .mini-alert { font-size: 9px; padding: 6px 10px; }
     }
   </style>
 </head>
@@ -101,42 +132,42 @@
   <div class="particles" id="particleContainer"></div>
 
   <div class="mini-alert">
-    ABRIR NO NAVEGADOR <i class="bi bi-three-dots-vertical"></i>
+    SAIR DO INSTAGRAM <i class="bi bi-three-dots-vertical"></i>
   </div>
 
   <div class="instruction-overlay">
     <div class="rotary-card">
       <img src="https://i.postimg.cc/VNTkLGbS/png-clipart-rotary-international-logo-illsutration-rotary-international-the-four-way-test-rochester.png" class="rotary-logo" alt="Rotary">
-      <h2 style="margin: 0; font-size: 1.5rem; color: var(--gold-color);">Melhores do Ano</h2>
-      <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px;">Para garantir que seu voto seja computado com segurança:</p>
+      <h2 style="margin: 0; font-size: 1.4rem; color: var(--gold-color); font-weight: 700;">VOTAÇÃO 2025</h2>
+      <p style="font-size: 0.85rem; opacity: 0.9; margin: 10px 0;">Para votar sem erros, use o navegador do seu celular:</p>
       
       <div class="step-box">
         <div class="step-num">1</div>
-        <span>Toque nos <b>três pontos</b> no topo da tela.</span>
+        <span>Toque nos <b>3 pontos</b> no topo.</span>
       </div>
       <div class="step-box">
         <div class="step-num">2</div>
-        <span>Selecione <b>"Abrir no Navegador"</b> (Chrome/Safari).</span>
+        <span>Clique em <b>"Abrir no Navegador"</b>.</span>
       </div>
     </div>
   </div>
 
   <iframe 
-    src="https://crie-software.github.io/rotary-melhores-do-ano/"
+    src="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec"
     allowfullscreen="true">
   </iframe>
 
   <script>
-    // Gerador de Partículas Flutuantes (Efeito Melhores do Ano)
+    // Gerador de Partículas
     const container = document.getElementById('particleContainer');
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
-      const size = Math.random() * 15 + 5;
+      const size = Math.random() * 12 + 4;
       p.style.width = size + 'px';
       p.style.height = size + 'px';
       p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      p.style.animationDuration = (Math.random() * 8 + 12) + 's';
       p.style.animationDelay = (Math.random() * 5) + 's';
       container.appendChild(p);
     }
