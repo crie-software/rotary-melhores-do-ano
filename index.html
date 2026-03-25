@@ -3,98 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rotary - Melhores do Ano 2025</title>
+  <title>Melhores do Ano 2025 | Rotary Inocência</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
+    :root {
+      --primary-color: #2643c7;
+      --secondary-color: #e3ac6d;
+      --gold-color: #f7ce45;
+    }
+
     body, html { 
       margin: 0; padding: 0; height: 100%; width: 100%;
-      background-color: #2643c7; color: white;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      /* Identidade Visual: Degradê Azul para Verde */
+      background: linear-gradient(135deg, #2643c7 0%, #57a34b 100%) fixed;
+      color: white;
+      font-family: "Segoe UI", Tahoma, sans-serif;
       overflow: hidden;
     }
 
-    /* Camada de Instrução (fica atrás do iframe) */
-    .instruction-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 20px;
-      box-sizing: border-box;
-      z-index: 0;
+    /* Partículas Flutuantes de Fundo */
+    .particles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      animation: float 15s infinite linear;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
     }
 
-    .instruction-card {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px; border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
-      max-width: 320px;
-    }
-
-    .dots-icon { font-size: 2rem; color: #f86218; margin-bottom: 15px; }
-    
-    h2 { font-size: 1.4rem; margin-bottom: 10px; }
-    p { font-size: 0.95rem; line-height: 1.5; opacity: 0.9; }
-
-    .step {
-      display: flex; align-items: center; gap: 10px;
-      margin-top: 20px; text-align: left;
-      background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;
-    }
-
-    /* Iframe (fica na frente) */
+    /* Iframe do WebApp */
     iframe {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%; border: none;
-      z-index: 1; background: transparent;
+      z-index: 2; background: transparent;
     }
 
-    /* Pequeno aviso flutuante opcional no topo (z-index alto) */
+    /* Card de Instrução (Caso o Instagram bloqueie o carregamento) */
+    .instruction-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 1; text-align: center; padding: 20px;
+    }
+
+    .rotary-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      padding: 30px; border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      max-width: 340px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .rotary-logo { width: 80px; margin-bottom: 15px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
+
+    /* Alerta Superior (Aponta para os 3 pontos do Instagram) */
     .mini-alert {
-      position: fixed; top: 10px; right: 10px;
-      z-index: 100; background: #f86218;
-      font-size: 11px; padding: 5px 10px;
-      border-radius: 20px; font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      pointer-events: none; /* Não atrapalha cliques no iframe */
-      animation: bounce 2s infinite;
+      position: fixed; top: 12px; right: 12px;
+      z-index: 100; 
+      background: var(--gold-color);
+      color: #333;
+      font-size: 12px; padding: 8px 15px;
+      border-radius: 50px; font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      pointer-events: none;
+      display: flex; align-items: center; gap: 8px;
+      animation: attention 2s infinite;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    @keyframes attention {
+      0%, 100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+      50% { transform: scale(1.05); box-shadow: 0 5px 25px rgba(247, 206, 69, 0.6); }
+    }
+
+    .step-box {
+      background: rgba(255,255,255,0.1);
+      margin-top: 15px; padding: 12px;
+      border-radius: 12px; text-align: left;
+      font-size: 0.9rem; display: flex; align-items: center; gap: 12px;
+    }
+    .step-num { 
+      background: var(--gold-color); color: #333; 
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; flex-shrink: 0;
     }
   </style>
 </head>
 <body>
 
+  <div class="particles" id="particleContainer"></div>
+
   <div class="mini-alert">
-    <i class="bi bi-arrow-up"></i> USE O NAVEGADOR (3 PONTOS)
+    ABRIR NO NAVEGADOR <i class="bi bi-three-dots-vertical"></i>
   </div>
 
   <div class="instruction-overlay">
-    <div class="instruction-card">
-      <div class="dots-icon"><i class="bi bi-three-dots-vertical"></i></div>
-      <h2>Melhor Experiência</h2>
-      <p>Para navegar sem travamentos e usar todas as funções do portal:</p>
+    <div class="rotary-card">
+      <img src="https://i.postimg.cc/VNTkLGbS/png-clipart-rotary-international-logo-illsutration-rotary-international-the-four-way-test-rochester.png" class="rotary-logo" alt="Rotary">
+      <h2 style="margin: 0; font-size: 1.5rem; color: var(--gold-color);">Melhores do Ano</h2>
+      <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px;">Para garantir que seu voto seja computado com segurança:</p>
       
-      <div class="step">
-        <span style="font-size: 1.2rem;">1º</span>
-        <span>Clique nos <strong>3 pontinhos</strong> no canto superior direito.</span>
+      <div class="step-box">
+        <div class="step-num">1</div>
+        <span>Toque nos <b>três pontos</b> no topo da tela.</span>
       </div>
-      
-      <div class="step">
-        <span style="font-size: 1.2rem;">2º</span>
-        <span>Selecione <strong>"Abrir no Navegador"</strong>.</span>
+      <div class="step-box">
+        <div class="step-num">2</div>
+        <span>Selecione <b>"Abrir no Navegador"</b> (Chrome/Safari).</span>
       </div>
     </div>
   </div>
 
   <iframe 
-    src="https://script.google.com/macros/s/AKfycbyiTSilOZ97s3kMb6kdzVLvdzXBby2XvdMUDctjzMNBHmIozKvUL22lW3OyTk_eRMQtOA/exec"
+    src="https://crie-software.github.io/rotary-melhores-do-ano/"
     allowfullscreen="true">
   </iframe>
+
+  <script>
+    // Gerador de Partículas Flutuantes (Efeito Melhores do Ano)
+    const container = document.getElementById('particleContainer');
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 15 + 5;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 5) + 's';
+      container.appendChild(p);
+    }
+  </script>
 
 </body>
 </html>
